@@ -45,9 +45,9 @@ def extract(source=None, is_ipython=False):
     raise RuntimeError(message)
 
 
-def debug(f, is_ipython=False):
+def debug(f, *args, is_ipython=False, **kwargs):
     try:
-        return f()
+        return f(*args, **kwargs)
     except:
         # can I access v1 from here?
         f = inspect.trace()[-1][0]

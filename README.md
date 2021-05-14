@@ -9,17 +9,19 @@ def main():
     x = 3
     extract()
 
-main()
+main()  # raises a RunTimeError
 print(x)  # prints 3
 ```
 
 ```python
 from magic_extract import debug
 
-def main():
-    x = 3
-    raise Exception()
+def main(x):
+    y = x - 2
+    return x / y
 
-debug(main)
-print(x)  # prints 3
+debug(main, 4)  # returns 2
+debug(main, 3)  # returns 3
+debug(main, 2)  # raises ZeroDivisionError and extracts
+print(y)  # prints 0
 ```

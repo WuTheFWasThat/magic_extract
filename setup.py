@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name="magic_extract",
     packages=["magic_extract"],
-    version="0.2.0",
+    version="0.2.1",
     author="Jeffrey Wu",
     install_requires=[
     ],
