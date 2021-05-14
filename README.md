@@ -12,3 +12,14 @@ def main():
 main()
 print(x)  # prints 3
 ```
+
+```python
+from magic_extract import debug
+
+def main():
+    x = 3
+    raise Exception()
+
+debug(main)
+print(x)  # prints 3
+```
