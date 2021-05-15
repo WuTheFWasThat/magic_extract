@@ -2,6 +2,8 @@
 
 Based on https://andyljones.com/posts/post-mortem-plotting.html
 
+Examples run in interactive python:
+
 ```python
 from magic_extract import extract
 
