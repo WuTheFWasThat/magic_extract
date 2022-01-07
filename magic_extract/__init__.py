@@ -3,6 +3,9 @@ Based on
 https://andyljones.com/posts/post-mortem-plotting.html
 """
 
+# TODO:
+# also provide a magical new local or magic_extract.up or something that exports next frame's locals
+
 import inspect
 import ctypes
 
