@@ -45,14 +45,22 @@ def extract(source=None, is_ipython=False):
     raise RuntimeError(message)
 
 
-def debug(f, *args, is_ipython=False, **kwargs):
-    try:
-        return f(*args, **kwargs)
-    except:
-        # can I access v1 from here?
-        f = inspect.trace()[-1][0]
-        name, ls, gs = f.f_code.co_name, f.f_locals, f.f_globals
-        copy_name = _copy_out(ls, gs, is_ipython=is_ipython)
-        message = 'Copied {}\'s variables to {}'.format(name, copy_name)
-        raise RuntimeError(message)
+def decorate(is_ipython=False):
+    def decorator(wrapped):
+        def wrapper(*args, **kwargs):
+            try:
+                return wrapped(*args, **kwargs)
+            except:
+                # can I access v1 from here?
+                f = inspect.trace()[-1][0]
+                name, ls, gs = f.f_code.co_name, f.f_locals, f.f_globals
+                copy_name = _copy_out(ls, gs, is_ipython=is_ipython)
+                message = 'Copied {}\'s variables to {}'.format(name, copy_name)
+                raise RuntimeError(message)
+        return wrapper
+    return decorator
 
+
+def debug(f, *args, is_ipython=False, **kwargs):
+    new_f = decorate(is_ipython)(f)
+    return new_f(*args, **kwargs)
