@@ -6,6 +6,7 @@ https://andyljones.com/posts/post-mortem-plotting.html
 # TODO:
 # also provide a magical new local or magic_extract.up or something that exports next frame's locals
 
+import functools
 import inspect
 import ctypes
 
@@ -50,6 +51,7 @@ def extract(source=None, is_ipython=False):
 
 def decorate(is_ipython=False):
     def decorator(wrapped):
+        @functools.wraps(wrapped)
         def wrapper(*args, **kwargs):
             try:
                 return wrapped(*args, **kwargs)
