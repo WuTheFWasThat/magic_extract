@@ -52,6 +52,10 @@ def _copy_out(ls, gs):
     return f.f_code.co_name
 
 
+class MagicExtractError(Exception):
+    pass
+
+
 def extract(source=None):
     """Copies the variables of the caller up to iPython. Useful for debugging.
     .. code-block:: python
@@ -76,7 +80,7 @@ def extract(source=None):
         raise ValueError(f'Don\'t support source {source}')
     copy_name = _copy_out(ls, gs)
     message = 'Copied {}\'s variables to {}'.format(name, copy_name)
-    raise RuntimeError(message)
+    raise MagicExtractError(message)
 
 
 def embed_kernel(frame=None, kernel_name='magic-extract'):
@@ -152,7 +156,7 @@ def decorate(launch_kernel=False, launch_ipython=False):
                     copy_name = _copy_out(ls, gs)
                     # copy_name = _copy_to(decorate_frame, ls, gs)
                     message = 'Copied {}\'s variables to {}'.format(name, copy_name)
-                    raise RuntimeError(message)
+                    raise MagicExtractError(message)
         return wrapper
     return decorator
 

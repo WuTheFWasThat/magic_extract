@@ -2,15 +2,15 @@
 NOTE: this does *not* run with pytest, just run with python
 """
 
-from magic_extract import extract
+from magic_extract import extract, MagicExtractError
 
 def main():
     x = 3
     extract()
 
 try:
-    main()  # raises a RunTimeError
-except RuntimeError as e:
+    main()
+except MagicExtractError as e:
     pass
 assert x == 3
 
@@ -25,7 +25,7 @@ try:
     debug(main, 4)  # returns 2
     debug(main, 3)  # returns 3
     debug(main, 2)  # raises ZeroDivisionError and extracts
-except RuntimeError as e:
+except MagicExtractError as e:
     pass
 assert x == 2
 assert y == 0
@@ -42,7 +42,7 @@ main_dec(5)  # returns 2
 main_dec(4)  # returns 3
 try:
     main_dec(3)  # raises ZeroDivisionError and extracts
-except RuntimeError as e:
+except MagicExtractError as e:
     pass
 assert x == 3
 assert y == 0
